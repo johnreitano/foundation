@@ -1,0 +1,19 @@
+bootstrap:
+  #!/usr/bin/env bash
+  set -euxo pipefail
+  aws_account=$(aws sts get-caller-identity --query "Account" --output text)
+  aws_region=$(aws configure get region)
+  cdk bootstrap aws://$aws_account/$aws_region
+
+deploy: build
+  cdk deploy
+
+build:
+  #!/usr/bin/env bash
+  set -euxo pipefail
+  cd lambda_base_layer
+  docker build -t base-layer .
+  docker rm -f layer-container 2>/dev/null || :
+  docker run --name layer-container base-layer
+  docker cp layer-container:layer.zip .
+  docker rm layer-container
