@@ -8,7 +8,7 @@ import logo from "../public/foundationLogo.svg";
 const Foundation: React.FC = () => {
   const CHARACTER_LIMIT: number = 32;
   const ENDPOINT: string =
-    "https://x6w4komxe4.execute-api.us-west-2.amazonaws.com/prod/generate_snippet_and_keywords";
+    "https://7v2anpbpp3.execute-api.us-west-2.amazonaws.com/prod";
   const [prompt, setPrompt] = React.useState("");
   const [snippet, setSnippet] = React.useState("");
   const [keywords, setKeywords] = React.useState([]);
